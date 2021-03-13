@@ -1,6 +1,8 @@
 # service-node
 
 ## Development
+
+### Requirements
 The following are required to run the development environment:
 - [node](https://nodejs.org/en/download/)
 - [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/)
@@ -24,5 +26,6 @@ Start the development environment with `docker-compose`:
 ```bash
 docker-compose up
 ```
+This will start the server on [http://0.0.0.0:3000](http://0.0.0.0:3000) with `nodemon` watching for changes and `eslint` checking syntax.
 
 ## Production
