@@ -1,4 +1,4 @@
-class Example {
+class ExampleController {
 }
 
-module.exports = Example
+module.exports = ExampleController

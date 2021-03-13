@@ -1,4 +1,4 @@
-class Example {
+class ExampleService {
 }
 
-module.exports = Example
+module.exports = ExampleService
