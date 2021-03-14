@@ -1,4 +1,5 @@
 const Redis = require('ioredis')
+const { log } = require('./utils/logger')
 
 const {
   REDIS_HOST,
@@ -19,5 +20,8 @@ if (REDIS_PASSWORD) {
 }
 
 const redis = new Redis(options)
+redis.on('connect', () => {
+  log('Connected to Redis.')
+})
 
 module.exports = redis
