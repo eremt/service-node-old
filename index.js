@@ -11,12 +11,12 @@ const {
 } = process.env
 const isDev = NODE_ENV === 'development'
 
+const urlDocumentation = `http://${HOST}:${PORT}${DOCS}`
 const serverInfo = {
   name,
   version,
+  documentation: isDev ? urlDocumentation : undefined,
 }
-const urlDocumentation = `http://${HOST}:${PORT}${DOCS}`
-if (isDev) serverInfo.documentation = urlDocumentation
 
 server.get('/', (req, res) => {
   res.json(serverInfo)
