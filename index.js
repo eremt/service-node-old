@@ -25,7 +25,7 @@ server.get('/', (req, res) => {
 if (isDev) {
   const swaggerUi = require('swagger-ui-express')
   const swagger = require('./swagger')
-  server.use('/documentation', swaggerUi.serve, swaggerUi.setup(swagger))
+  server.use(DOCS, swaggerUi.serve, swaggerUi.setup(swagger))
 }
 
 server.use((req, res) => res.status(404).json({ code: 404, message: 'Not found.' }))
