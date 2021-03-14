@@ -3,6 +3,9 @@ require('./src/redis')
 
 const server = express()
 
+const helmet = require('helmet')
+server.use(helmet())
+
 const bodyParser = require('body-parser')
 server.use(bodyParser.json())
 
