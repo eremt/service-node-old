@@ -6,7 +6,7 @@ const { log } = require('./logger')
  *     description: Successful request
  */
 const NO_CONTENT = {
-  code: 200,
+  code: 204,
 }
 
 function missingParameters (_params, message, optional = false) {
