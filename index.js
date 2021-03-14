@@ -1,4 +1,5 @@
 const server = require('./server')
+const { log } = require('./src/utils/logger')
 
 const {
   NODE_ENV,
@@ -31,7 +32,7 @@ server.use((req, res) => res.status(404).json({ code: 404, message: 'Not found.'
 
 server.listen(PORT, HOST, () => {
   if (isDev) {
-    console.log(`Server running on http://${HOST}:${PORT}`)
-    console.log(`Documentation running on ${urlDocumentation}`)
+    log(`Server running on http://${HOST}:${PORT}`)
+    log(`Documentation running on ${urlDocumentation}`)
   }
 })

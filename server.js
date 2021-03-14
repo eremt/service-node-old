@@ -8,6 +8,9 @@ server.use(bodyParser.json())
 const cookieParser = require('cookie-parser')
 server.use(cookieParser())
 
+const { logRequests } = require('./src/utils/logger')
+server.use(logRequests())
+
 const router = require('./src/routes')
 server.use(router)
 
