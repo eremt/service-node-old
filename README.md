@@ -30,3 +30,6 @@ This will start the server on [http://0.0.0.0:3000](http://0.0.0.0:3000) with `n
 When running you can find the `swagger` documentation on [http://0.0.0.0:3000/documentation](http://0.0.0.0:3000/documentation).
 
 ## Production
+
+## License
+[MIT](LICENSE)
