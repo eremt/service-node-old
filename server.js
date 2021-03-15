@@ -3,8 +3,15 @@ require('./src/redis')
 
 const server = express()
 
-const helmet = require('helmet')
-server.use(helmet())
+const isDev = process.env.NODE_ENV === 'development'
+
+if (!isDev) {
+  // TODO: for now disable helmet in dev because it breaks swagger, investigate
+  const helmet = require('helmet')
+  server.use(helmet({
+    referrerPolicy: false,
+  }))
+}
 
 const bodyParser = require('body-parser')
 server.use(bodyParser.json())
