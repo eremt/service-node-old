@@ -3,9 +3,11 @@ const { v4: uuid } = require('uuid')
 const { log } = require('../utils/logger')
 
 const { NODE_ENV } = process.env
+
+const TTL = 1000 * 60 * 60 * 24 * 7
 const cookieConfig = {
   httpOnly: true,
-  maxAge: 1000 * 60,
+  maxAge: TTL,
   secure: NODE_ENV !== 'development',
 }
 
@@ -22,7 +24,7 @@ class SessionService {
 
   static async set (id, data) {
     try {
-      return redis.set(id, JSON.stringify(data))
+      return redis.set(id, JSON.stringify(data), 'PX', TTL)
     } catch (error) {
       log(error)
     }
