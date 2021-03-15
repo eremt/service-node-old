@@ -11,6 +11,11 @@ const swaggerSpec = swaggerJSDoc({
     info: {
       title,
       version,
+      description: `Documentation for ${title} API.`,
+      license: {
+        name: 'MIT',
+        url: 'https://mit-license.org/',
+      },
     },
     basePath: '/',
   },
