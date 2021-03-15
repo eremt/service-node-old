@@ -9,5 +9,14 @@ services:
       - .:/usr/src/app
     ports:
       - "${PORT}:${PORT}"
+    depends_on:
+      - "redis"
     env_file: .env
     tty: true
+
+  redis:
+    container_name: node-service_redis
+    image: "redis:alpine"
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"

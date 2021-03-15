@@ -11,12 +11,12 @@ const {
 } = process.env
 const isDev = NODE_ENV === 'development'
 
+const urlDocumentation = `http://${HOST}:${PORT}${DOCS}`
 const serverInfo = {
   name,
   version,
+  documentation: isDev ? urlDocumentation : undefined,
 }
-const urlDocumentation = `http://${HOST}:${PORT}${DOCS}`
-if (isDev) serverInfo.documentation = urlDocumentation
 
 server.get('/', (req, res) => {
   res.json(serverInfo)
@@ -25,7 +25,7 @@ server.get('/', (req, res) => {
 if (isDev) {
   const swaggerUi = require('swagger-ui-express')
   const swagger = require('./swagger')
-  server.use('/documentation', swaggerUi.serve, swaggerUi.setup(swagger))
+  server.use(DOCS, swaggerUi.serve, swaggerUi.setup(swagger))
 }
 
 server.use((req, res) => res.status(404).json({ code: 404, message: 'Not found.' }))
