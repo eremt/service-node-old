@@ -5,6 +5,22 @@ const server = express()
 
 const isDev = process.env.NODE_ENV === 'development'
 
+server.use((req, res, next) => {
+  const { origin } = req.headers
+  const allowedOrigins = []
+  if (isDev) {
+    if (origin) allowedOrigins.push(origin)
+  }
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type')
+  res.setHeader('Access-Control-Allow-Credentials', true)
+
+  next()
+})
+
 if (!isDev) {
   // TODO: for now disable helmet in dev because it breaks swagger, investigate
   const helmet = require('helmet')
