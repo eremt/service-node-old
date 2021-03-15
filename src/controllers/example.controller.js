@@ -1,3 +1,5 @@
+const { ExampleService } = require('../services')
+
 const {
   NO_CONTENT,
   missingRequired,
@@ -7,21 +9,45 @@ const {
 /**
  * @swagger
  * components:
- *   one:
+ *   id:
  *     type: object
  *     properties:
- *       one:
+ *       id:
  *         type: string
- *   two:
- *     type: object
- *     properties:
- *       two:
- *         type: string
+ *         format: uuid
  *
- *   reqBody:
+ *   created:
+ *     type: object
+ *     properties:
+ *       created:
+ *         type: string
+ *         format: date-time
+ *
+ *   name:
+ *     type: object
+ *     properties:
+ *       name:
+ *         type: string
+ *         example: Example
+ *
+ *   description:
+ *     type: object
+ *     properties:
+ *       description:
+ *         type: string
+ *         example: An example
+ *
+ *   exampleResponse:
  *     allOf:
- *       - $ref: '#/components/one'
- *       - $ref: '#/components/two'
+ *       - $ref: '#/components/id'
+ *       - $ref: '#/components/created'
+ *       - $ref: '#/components/name'
+ *       - $ref: '#/components/description'
+ *
+ *   exampleRequest:
+ *     allOf:
+ *       - $ref: '#/components/name'
+ *       - $ref: '#/components/description'
  */
 class ExampleController {
   /**
@@ -41,12 +67,16 @@ class ExampleController {
    *                 message:
    *                   type: string
    *                   example: GET /example
+   *
+   *               $ref: '#/components/exampleResponse'
    *       500:
    *         $ref: '#/components/internalServerError'
    */
-  static async get (req, res) {
+  static async getExample (req, res) {
     try {
-      res.json({ message: 'GET /example' })
+      const result = await ExampleService.getExample()
+
+      res.json(result)
     } catch (error) {
       internalServerError(error, req, res)
     }
@@ -61,7 +91,7 @@ class ExampleController {
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: '#/components/reqBody'
+   *             $ref: '#/components/exampleRequest'
    *
    *     responses:
    *       200:
@@ -69,23 +99,21 @@ class ExampleController {
    *         content:
    *           application/json:
    *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   example: POST /example
+   *               $ref: '#/components/exampleResponse'
    *       400:
    *         $ref: '#/components/missingRequired'
    *       500:
    *         $ref: '#/components/internalServerError'
    */
-  static async post (req, res) {
+  static async createExample (req, res) {
     try {
-      const { one, two } = req.body
-      const error = missingRequired({ one, two })
+      const { name } = req.body
+      const error = missingRequired({ name })
       if (error) return res.status(error.code).json(error)
 
-      res.json({ message: 'POST /example' })
+      const result = await ExampleService.createExample()
+
+      res.json(result)
     } catch (error) {
       internalServerError(error, req, res)
     }
@@ -100,7 +128,7 @@ class ExampleController {
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: '#/components/reqBody'
+   *             $ref: '#/components/exampleRequest'
    *
    *     responses:
    *       200:
@@ -108,23 +136,21 @@ class ExampleController {
    *         content:
    *           application/json:
    *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   example: PUT /example
+   *               $ref: '#/components/exampleResponse'
    *       400:
    *         $ref: '#/components/missingRequired'
    *       500:
    *         $ref: '#/components/internalServerError'
    */
-  static async put (req, res) {
+  static async updateExample (req, res) {
     try {
-      const { one, two } = req.body
-      const error = missingRequired({ one, two })
+      const { name } = req.body
+      const error = missingRequired({ name })
       if (error) return res.status(error.code).json(error)
 
-      res.json({ message: 'PUT /example' })
+      const result = await ExampleService.updateExample()
+
+      res.json(result)
     } catch (error) {
       internalServerError(error, req, res)
     }
@@ -142,8 +168,10 @@ class ExampleController {
    *       500:
    *         $ref: '#/components/internalServerError'
    */
-  static async delete (req, res) {
+  static async deleteExample (req, res) {
     try {
+      await ExampleService.deleteExample()
+
       res.status(NO_CONTENT.code).end()
     } catch (error) {
       internalServerError(error, req, res)
