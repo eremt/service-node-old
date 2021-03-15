@@ -10,6 +10,10 @@ class ExampleService {
     return example
   }
 
+  static async getExamples () {
+    return [example]
+  }
+
   static async createExample () {
     return example
   }

@@ -44,6 +44,11 @@ const {
  *       - $ref: '#/components/name'
  *       - $ref: '#/components/description'
  *
+ *   examplesResponse:
+ *     type: array
+ *     items:
+ *       $ref: '#/components/exampleResponse'
+ *
  *   exampleRequest:
  *     allOf:
  *       - $ref: '#/components/name'
@@ -52,9 +57,15 @@ const {
 class ExampleController {
   /**
    * @swagger
-   * /example:
+   * /examples/{id}:
    *   get:
-   *     tags: [/example]
+   *     tags: [/examples]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         schema:
+   *           type: string
+   *           format: uuid
    *
    *     responses:
    *       200:
@@ -66,7 +77,7 @@ class ExampleController {
    *               properties:
    *                 message:
    *                   type: string
-   *                   example: GET /example
+   *                   example: GET /examples
    *
    *               $ref: '#/components/exampleResponse'
    *       500:
@@ -84,9 +95,41 @@ class ExampleController {
 
   /**
    * @swagger
-   * /example:
+   * /examples:
+   *   get:
+   *     tags: [/examples]
+   *
+   *     responses:
+   *       200:
+   *         description: Successful request
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 message:
+   *                   type: string
+   *                   example: GET /examples
+   *
+   *               $ref: '#/components/examplesResponse'
+   *       500:
+   *         $ref: '#/components/internalServerError'
+   */
+  static async getExamples (req, res) {
+    try {
+      const result = await ExampleService.getExamples()
+
+      res.json(result)
+    } catch (error) {
+      internalServerError(error, req, res)
+    }
+  }
+
+  /**
+   * @swagger
+   * /examples:
    *   post:
-   *     tags: [/example]
+   *     tags: [/examples]
    *     requestBody:
    *       content:
    *         application/json:
@@ -121,9 +164,9 @@ class ExampleController {
 
   /**
    * @swagger
-   * /example:
+   * /examples/{id}:
    *   put:
-   *     tags: [/example]
+   *     tags: [/examples]
    *     requestBody:
    *       content:
    *         application/json:
@@ -158,9 +201,9 @@ class ExampleController {
 
   /**
    * @swagger
-   * /example:
+   * /examples/{id}:
    *   delete:
-   *     tags: [/example]
+   *     tags: [/examples]
    *
    *     responses:
    *       204:
