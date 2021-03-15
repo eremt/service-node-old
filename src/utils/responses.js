@@ -34,10 +34,6 @@ function missingParameters (_params, message, optional = false) {
  *     content:
  *       application/json:
  *         schema:
- *           type: object
- *           properties:
- *             code: number
- *             message: string
  *           example:
  *             code: 400
  *             message: 'Missing optional parameter(s): [parameters].'
@@ -54,10 +50,6 @@ function missingOptional (params) {
  *     content:
  *       application/json:
  *         schema:
- *           type: object
- *           properties:
- *             code: number
- *             message: string
  *           example:
  *             code: 400
  *             message: 'Missing required parameter(s): [parameters].'
@@ -83,10 +75,6 @@ const PASSWORDS_NO_MATCH = {
  *     content:
  *       application/json:
  *         schema:
- *           type: object
- *           properties:
- *             code: number
- *             message: string
  *           example:
  *             code: 401
  *             message: Unauthorized request.
@@ -104,10 +92,6 @@ const UNAUTHORIZED_REQUEST = {
  *     content:
  *       application/json:
  *         schema:
- *           type: object
- *           properties:
- *             code: 401
- *             message: string
  *           example:
  *             code: 500
  *             message: Internal server error.
