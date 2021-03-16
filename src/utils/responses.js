@@ -30,7 +30,7 @@ function missingParameters (_params, message, optional = false) {
  * @swagger
  * components:
  *   missingOptional:
- *     description: Bad request
+ *     description: Bad request. At least one of the parameters in message is required.
  *     content:
  *       application/json:
  *         schema:
@@ -46,7 +46,7 @@ function missingOptional (params) {
  * @swagger
  * components:
  *   missingRequired:
- *     description: Bad request
+ *     description: Bad request. All parameters in message are required.
  *     content:
  *       application/json:
  *         schema:
