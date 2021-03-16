@@ -75,12 +75,6 @@ class ExampleController {
    *         content:
    *           application/json:
    *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   example: GET /examples
-   *
    *               $ref: '#/components/exampleResponse'
    *       404:
    *         $ref: '#/components/notFound'
@@ -111,12 +105,6 @@ class ExampleController {
    *         content:
    *           application/json:
    *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   example: GET /examples
-   *
    *               $ref: '#/components/examplesResponse'
    *       500:
    *         $ref: '#/components/internalServerError'
