@@ -21,8 +21,8 @@ const {
  *     type: object
  *     properties:
  *       created:
- *         type: string
- *         format: date-time
+ *         type: number
+ *         example: 1577895600000
  *
  *   name:
  *     type: object

@@ -4,7 +4,7 @@ const { notFound } = require('../utils/responses')
 function exampleFactory ({ name, description }) {
   return {
     id: uuid(),
-    created: new Date(),
+    created: Date.now(),
     name,
     description,
   }
