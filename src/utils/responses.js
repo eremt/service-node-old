@@ -130,11 +130,11 @@ function internalServerError (req, res, error) {
 
 module.exports = {
   NO_CONTENT,
-  EMAIL_EXISTS,
-  PASSWORDS_NO_MATCH,
   UNAUTHORIZED_REQUEST,
   NOT_FOUND,
   notFound,
+  EMAIL_EXISTS,
+  PASSWORDS_NO_MATCH,
   missingOptional,
   missingRequired,
   internalServerError,
