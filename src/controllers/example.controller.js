@@ -84,6 +84,7 @@ class ExampleController {
   static async getExample (req, res) {
     try {
       const { id } = req.params
+
       const result = await ExampleService.getExample(id)
       if (result.code === 404) return res.status(result.code).json(result)
 
