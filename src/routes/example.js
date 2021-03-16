@@ -4,7 +4,7 @@ const { ExampleController } = require('../controllers')
 router.get('/', ExampleController.getExamples)
 router.get('/:id', ExampleController.getExample)
 router.post('/', ExampleController.createExample)
-router.put('/', ExampleController.updateExample)
-router.delete('/', ExampleController.deleteExample)
+router.put('/:id', ExampleController.updateExample)
+router.delete('/:id', ExampleController.deleteExample)
 
 module.exports = router

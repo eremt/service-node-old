@@ -3,6 +3,7 @@ const { ExampleService } = require('../services')
 const {
   NO_CONTENT,
   missingRequired,
+  missingOptional,
   internalServerError,
 } = require('../utils/responses')
 
@@ -63,6 +64,7 @@ class ExampleController {
    *     parameters:
    *       - in: path
    *         name: id
+   *         required: true
    *         schema:
    *           type: string
    *           format: uuid
@@ -80,12 +82,16 @@ class ExampleController {
    *                   example: GET /examples
    *
    *               $ref: '#/components/exampleResponse'
+   *       404:
+   *         $ref: '#/components/notFound'
    *       500:
    *         $ref: '#/components/internalServerError'
    */
   static async getExample (req, res) {
     try {
-      const result = await ExampleService.getExample()
+      const { id } = req.params
+      const result = await ExampleService.getExample(id)
+      if (result.code === 404) return res.status(result.code).json(result)
 
       res.json(result)
     } catch (error) {
@@ -150,11 +156,11 @@ class ExampleController {
    */
   static async createExample (req, res) {
     try {
-      const { name } = req.body
+      const { name, description } = req.body
       const error = missingRequired({ name })
       if (error) return res.status(error.code).json(error)
 
-      const result = await ExampleService.createExample()
+      const result = await ExampleService.createExample({ name, description })
 
       res.json(result)
     } catch (error) {
@@ -167,6 +173,13 @@ class ExampleController {
    * /examples/{id}:
    *   put:
    *     tags: [/examples]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *           format: uuid
    *     requestBody:
    *       content:
    *         application/json:
@@ -181,17 +194,23 @@ class ExampleController {
    *             schema:
    *               $ref: '#/components/exampleResponse'
    *       400:
-   *         $ref: '#/components/missingRequired'
+   *         $ref: '#/components/missingOptional'
+   *       404:
+   *         $ref: '#/components/notFound'
    *       500:
    *         $ref: '#/components/internalServerError'
    */
   static async updateExample (req, res) {
     try {
-      const { name } = req.body
-      const error = missingRequired({ name })
+      const { id } = req.params
+
+      const { name, description } = req.body
+      const error = missingOptional({ name, description })
       if (error) return res.status(error.code).json(error)
 
-      const result = await ExampleService.updateExample()
+      const data = { name, description }
+      const result = await ExampleService.updateExample(id, data)
+      if (result.code === 404) return res.status(result.code).json(result)
 
       res.json(result)
     } catch (error) {
@@ -204,16 +223,28 @@ class ExampleController {
    * /examples/{id}:
    *   delete:
    *     tags: [/examples]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *           format: uuid
    *
    *     responses:
    *       204:
    *         $ref: '#/components/noContent'
+   *       404:
+   *         $ref: '#/components/notFound'
    *       500:
    *         $ref: '#/components/internalServerError'
    */
   static async deleteExample (req, res) {
     try {
-      await ExampleService.deleteExample()
+      const { id } = req.params
+
+      const result = await ExampleService.deleteExample(id)
+      if (result.code === 404) return res.status(result.code).json(result)
 
       res.status(NO_CONTENT.code).end()
     } catch (error) {
