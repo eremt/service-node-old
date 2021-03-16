@@ -58,15 +58,6 @@ function missingRequired (params) {
   return missingParameters(params, 'Missing required parameter(s)')
 }
 
-const EMAIL_EXISTS = {
-  code: 422,
-  message: 'E-mail is already registered.',
-}
-const PASSWORDS_NO_MATCH = {
-  code: 422,
-  message: 'Passwords do not match.',
-}
-
 /**
  * @swagger
  * components:
@@ -82,6 +73,38 @@ const PASSWORDS_NO_MATCH = {
 const UNAUTHORIZED_REQUEST = {
   code: 401,
   message: 'Unauthorized request.',
+}
+
+/**
+ * @swagger
+ * components:
+ *   notFound:
+ *     description: Not found
+ *     content:
+ *       application/json:
+ *         schema:
+ *           example:
+ *             code: 404
+ *             message: '[resource] not found.'
+ */
+const NOT_FOUND = {
+  code: 404,
+  message: 'Not found.',
+}
+function notFound (resource) {
+  return {
+    code: NOT_FOUND.code,
+    message: `${resource} not found.`,
+  }
+}
+
+const EMAIL_EXISTS = {
+  code: 422,
+  message: 'E-mail is already registered.',
+}
+const PASSWORDS_NO_MATCH = {
+  code: 422,
+  message: 'Passwords do not match.',
 }
 
 /**
@@ -110,6 +133,8 @@ module.exports = {
   EMAIL_EXISTS,
   PASSWORDS_NO_MATCH,
   UNAUTHORIZED_REQUEST,
+  NOT_FOUND,
+  notFound,
   missingOptional,
   missingRequired,
   internalServerError,
