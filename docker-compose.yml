@@ -1,7 +1,7 @@
 services:
-  node-service:
-    image: node-service:latest
-    container_name: node-service
+  service-node:
+    image: service-node:latest
+    container_name: service-node
     build: .
     command: npm run dev
     restart: unless-stopped
@@ -15,7 +15,7 @@ services:
     tty: true
 
   redis:
-    container_name: node-service_redis
+    container_name: service-node_redis
     image: "redis:alpine"
     restart: unless-stopped
     ports:
