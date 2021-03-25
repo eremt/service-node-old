@@ -123,7 +123,7 @@ const INTERNAL_SERVER_ERROR = {
   code: 500,
   message: 'Internal server error.',
 }
-function internalServerError (req, res, error) {
+function internalServerError (error, req, res) {
   log(error.stack)
   res.status(INTERNAL_SERVER_ERROR.code).json(INTERNAL_SERVER_ERROR)
 }
