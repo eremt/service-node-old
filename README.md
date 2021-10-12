@@ -9,9 +9,7 @@ The following are required to run the development environment:
 
 ### Setup
 Clone the repository:
-```bash
-git clone git@github.com:eremt/service-node.git
-```
+```git clone git@github.com:eremt/service-node.git```
 Copy `.env.example`:
 ```bash
 cp .env.example .env
